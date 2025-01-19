@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, UpdateResult } from "typeorm";
 import { User } from "../entities/User";
 import { UserCreateDto } from "../dtos/user/UserCreateDto";
 
@@ -14,8 +14,8 @@ export class UserRepository {
     await this.userRepository.insert(newUser);
   }
 
-  async update(id: number, user: Partial<User>): Promise<void> {
-    await this.userRepository.update(id, user);
+  async update(id: number, user: Partial<User>): Promise<UpdateResult> {
+    return await this.userRepository.update(id, user);
   }
 
   async get(id: string): Promise<User | null> {

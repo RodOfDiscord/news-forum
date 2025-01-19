@@ -16,6 +16,9 @@ export class Article {
   @Column()
   title: string;
 
+  @Column("text")
+  content: string;
+
   @ManyToOne(() => Article, (article) => article.category)
   @JoinColumn({ name: "category_id" })
   category: Category;

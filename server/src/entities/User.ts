@@ -7,10 +7,12 @@ import {
   CreateDateColumn,
   ManyToOne,
   OneToMany,
+  Unique,
 } from "typeorm";
 import { Role } from "./Role";
 import { Article } from "./Article";
 
+@Unique(["email", "login"])
 @Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn("uuid")

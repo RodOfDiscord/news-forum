@@ -1,22 +1,16 @@
 import { UserService } from "../services/UserService";
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
 export class UserController {
-    private userService: UserService;
+  private userService: UserService;
 
-    constructor(userService: UserService) {
-        this.userService = userService
-    }
+  constructor(userService: UserService) {
+    this.userService = userService;
+  }
 
-    getUsers = async (_: Request, res: Response): Promise<void> => {
-        try {
-            const users = await this.userService.getAll();
-            res.status(200).json(users);
-            return;
-        } catch (error) {
-            console.error("Error fetching users:", error);
-            res.status(500).json({ error: "Failed to fetch users" });
-            return;
-        }
-    };
+  getUsers = async (_: Request, res: Response): Promise<void> => {
+    const users = await this.userService.getAll();
+    res.status(200).json(users);
+    return;
+  };
 }
