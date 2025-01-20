@@ -2,6 +2,8 @@ import { validate } from "class-validator";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { NextFunction, RequestHandler } from "express";
 import { Response, Request } from "express";
+import { ApiError } from "../utils/errors/ApiError";
+import { ErrorMessage } from "../utils/types/ErrorMessage";
 
 export function validation<T extends object>(
   dto: ClassConstructor<T>
@@ -10,14 +12,14 @@ export function validation<T extends object>(
     const dtoInstance = plainToInstance(dto, req.body);
     const errors = await validate(dtoInstance);
     if (errors.length > 0) {
-      res.status(400).json({
-        message: "Validation failed",
-        errors: errors.map((err) => ({
-          property: err.property,
-          constraints: err.constraints,
-        })),
-      });
-    }
-    next();
+      const messages: ErrorMessage[] = errors.flatMap((error) =>
+        Object.entries(error.constraints || {}).map(([_, message]) => ({
+          field: error.property,
+          message,
+        }))
+      );
+
+      next(ApiError.BadRequest("Validation failed", messages));
+    } else next();
   };
 }

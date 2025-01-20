@@ -1,8 +1,8 @@
-import { IsString, IsNotEmpty, IsUUID } from "class-validator";
-
+import { IsString, IsNotEmpty, IsUUID, Length } from "class-validator";
 export class ArticleCreateDto {
   @IsString()
   @IsNotEmpty()
+  @Length(6, 52)
   title: string;
 
   @IsString()
