@@ -11,6 +11,9 @@ export function validation<T extends object>(
   return async (req: Request, res: Response, next: NextFunction) => {
     const dtoInstance = plainToInstance(dto, req.body);
     const errors = await validate(dtoInstance);
+    if (!Object.keys(req.body).length) {
+      next(ApiError.BadRequest("Request body cannot be empty"));
+    }
     if (errors.length > 0) {
       const messages: ErrorMessage[] = errors.flatMap((error) =>
         Object.entries(error.constraints || {}).map(([_, message]) => ({

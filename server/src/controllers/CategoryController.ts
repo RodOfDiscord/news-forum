@@ -1,5 +1,5 @@
 import { CategoryService } from "../services/CategoryService";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 export class CategoryController {
   private categoryService: CategoryService;
@@ -14,32 +14,59 @@ export class CategoryController {
     return;
   };
 
-  getCategoryById = async (req: Request, res: Response): Promise<void> => {
+  getCategoryById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const { id } = req.params;
-    const category = await this.categoryService.getById(id);
-    res.status(200).json(category);
-    return;
+    try {
+      const category = await this.categoryService.getById(id);
+      res.status(200).json(category);
+      return;
+    } catch (e) {
+      next(e);
+    }
   };
 
-  createCategory = async (req: Request, res: Response): Promise<void> => {
+  addCategory = async (req: Request, res: Response): Promise<void> => {
     const categoryData = req.body;
     const newCategory = await this.categoryService.add(categoryData);
     res.status(201).json(newCategory);
     return;
   };
 
-  updateCategory = async (req: Request, res: Response): Promise<void> => {
+  updateCategory = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const { id } = req.params;
-    const categoryData = req.body;
-    const updatedCategory = await this.categoryService.update(id, categoryData);
-    res.status(200).json(updatedCategory);
-    return;
+    try {
+      const categoryData = req.body;
+      const updatedCategory = await this.categoryService.update(
+        id,
+        categoryData
+      );
+      res.status(200).json(updatedCategory);
+      return;
+    } catch (e) {
+      next(e);
+    }
   };
 
-  deleteCategory = async (req: Request, res: Response): Promise<void> => {
+  deleteCategory = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     const { id } = req.params;
-    await this.categoryService.delete(id);
-    res.status(204).send();
-    return;
+    try {
+      await this.categoryService.delete(id);
+      res.status(204).send();
+      return;
+    } catch (e) {
+      next(e);
+    }
   };
 }

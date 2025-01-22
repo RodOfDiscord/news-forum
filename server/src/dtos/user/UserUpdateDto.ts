@@ -3,16 +3,19 @@ import {
   IsStrongPassword,
   MinLength,
   MaxLength,
+  IsOptional,
 } from "class-validator";
 
-export class UserCreateDto {
+export class UserUpdateDto {
   @MinLength(5)
   @MaxLength(26)
-  username: string;
+  @IsOptional()
+  username?: string;
 
   @MinLength(5)
   @MaxLength(26)
-  login: string;
+  @IsOptional()
+  login?: string;
 
   @IsStrongPassword({
     minLength: 8,
@@ -22,8 +25,10 @@ export class UserCreateDto {
     minLowercase: 0,
   })
   @MaxLength(16)
-  password: string;
+  @IsOptional()
+  password?: string;
 
   @IsEmail()
-  email: string;
+  @IsOptional()
+  email?: string;
 }

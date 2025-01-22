@@ -10,9 +10,11 @@ export function handleError(
   if (err instanceof ApiError) {
     res
       .status(err.statusCode)
-      .json({ message: err.message, errors: err.errorMessages });
+      .json({ message: err.message, errors: err.errorMessages || [] });
     return;
   }
-  res.status(500).json({ message: "Unexpected error" });
+
+  res.status(500).json({ message: "Unexpected error", errors: [] });
+  console.log(err);
   return;
 }

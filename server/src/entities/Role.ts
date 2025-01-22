@@ -7,8 +7,8 @@ export class Role {
   id: string;
 
   @Column()
-  Name: string;
+  name: string;
 
-  @OneToMany(() => User, (user) => user.role, { onDelete: "SET NULL" })
+  @OneToMany(() => User, (user) => user.role)
   users: User[];
 }

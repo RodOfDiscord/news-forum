@@ -1,6 +1,8 @@
-import { Repository, UpdateResult } from "typeorm";
+import { Repository } from "typeorm";
 import { User } from "../entities/User";
 import { UserCreateDto } from "../dtos/user/UserCreateDto";
+import { UserUpdateDto } from "../dtos/user/UserUpdateDto";
+import { ApiError } from "../utils/errors/ApiError";
 
 export class UserRepository {
   constructor(private readonly userRepository: Repository<User>) {}
@@ -14,8 +16,11 @@ export class UserRepository {
     await this.userRepository.insert(newUser);
   }
 
-  async update(id: number, user: Partial<User>): Promise<UpdateResult> {
-    return await this.userRepository.update(id, user);
+  async update(id: string, userUpdateDto: UserUpdateDto): Promise<User> {
+    const result = await this.userRepository.update(id, userUpdateDto);
+    if (result.affected === 0) throw ApiError.NotFound("User not found");
+    const updatedUser = await this.userRepository.findOne({ where: { id } });
+    return updatedUser!;
   }
 
   async get(id: string): Promise<User | null> {
