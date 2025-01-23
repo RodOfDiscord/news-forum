@@ -70,18 +70,7 @@ export class UserService {
   }
 
   async logout(refreshToken: string) {
-    try {
-      const userPayload = this.tokenService.verifyRefreshToken(refreshToken);
-      const storedToken = await this.tokenService.getByToken(refreshToken);
-
-      if (!storedToken || storedToken.user.id !== userPayload!.id) {
-        throw ApiError.Unauthorized("Invalid refresh token");
-      }
-
-      await this.tokenService.delete(refreshToken);
-    } catch (error) {
-      throw ApiError.Unauthorized("Invalid or expired refresh token");
-    }
+    await this.tokenService.delete(refreshToken);
   }
 
   async refresh(refreshToken: string) {
@@ -100,9 +89,10 @@ export class UserService {
       email: user.email,
       role: user.role,
     };
-
-    const newRefreshToken =
-      this.tokenService.createRefreshToken(newUserPayload);
+    console.log(newUserPayload);
+    const newRefreshToken = await this.tokenService.createRefreshToken(
+      newUserPayload
+    );
     const newAccessToken =
       this.tokenService.generateAccessToken(newUserPayload);
 

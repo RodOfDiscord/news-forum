@@ -46,7 +46,7 @@ export class RefreshTokenRepository {
   async getByToken(refreshToken: string) {
     const token = await this.tokenRepository.findOne({
       where: { token: refreshToken },
-      relations: ["users"],
+      relations: ["user"],
     });
     if (!token) throw ApiError.NotFound("Token not found");
     return token;

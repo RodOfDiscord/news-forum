@@ -24,7 +24,7 @@ export class TokenService {
     return token;
   }
 
-  async generateAccessToken(userPayload: UserPayloadDto) {
+  generateAccessToken(userPayload: UserPayloadDto) {
     const token = sign(userPayload, String(process.env.ACCESS_TOKEN_SECRET), {
       expiresIn: "15m",
     });

@@ -30,7 +30,7 @@ export class AuthController {
   };
 
   refreshToken = async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.cookies?.["refreshToken"] || "";
+    const token = req.cookies["refreshToken"];
     try {
       const { refreshToken, accessToken } = await this.userService.refresh(
         token
@@ -46,7 +46,15 @@ export class AuthController {
     }
   };
 
-  logout = async (req: Request, res: Response) => {
-    res.clearCookie("refreshToken");
+  logout = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const token = req.cookies["refreshToken"];
+      await this.userService.logout(token);
+      res.clearCookie("refreshToken");
+      res.status(200);
+      return;
+    } catch (e) {
+      next(e);
+    }
   };
 }

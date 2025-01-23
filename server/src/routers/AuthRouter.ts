@@ -27,5 +27,5 @@ authRouter.post(
   validation(UserCreateDto),
   authController.register
 );
-
+authRouter.get("/logout", authController.logout);
 authRouter.get("/refresh-token", authController.refreshToken);

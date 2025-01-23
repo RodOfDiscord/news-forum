@@ -1,4 +1,5 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import { AppDataSource } from "./utils/data-source";
 import { config } from "dotenv";
 import cors from "cors";
@@ -11,6 +12,7 @@ config();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 const port = process.env.SERVER_PORT || 3000;
 app.use(router);
 
