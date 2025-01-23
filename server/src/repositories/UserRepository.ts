@@ -11,8 +11,14 @@ export class UserRepository {
     return await this.userRepository.find();
   }
 
-  async add(user: UserCreateDto) {
-    const newUser = this.userRepository.create(user);
+  async add(userDto: UserCreateDto) {
+    const user = await this.userRepository.findOne({
+      where: [{ login: userDto.login }, { email: userDto.email }],
+    });
+    if (user) {
+      throw ApiError.Conflict("The user already exists");
+    }
+    const newUser = this.userRepository.create(userDto);
     await this.userRepository.insert(newUser);
   }
 
@@ -28,6 +34,14 @@ export class UserRepository {
       where: { id },
       relations: ["role", "articles"],
     });
+  }
+
+  async getByEmail(email: string): Promise<User | null> {
+    return await this.userRepository.findOne({ where: { email: email } });
+  }
+
+  async getByLogin(login: string) {
+    return await this.userRepository.findOne({ where: { login } });
   }
 
   async delete(id: string): Promise<void> {

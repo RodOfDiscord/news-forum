@@ -7,11 +7,22 @@ import { UserRepository } from "../repositories/UserRepository";
 import { validateUUID } from "../middlewares/ValidateUUID";
 import { validation } from "../middlewares/Validation";
 import { UserUpdateDto } from "../dtos/user/UserUpdateDto";
+import { UserCreateDto } from "../dtos/user/UserCreateDto";
+import { TokenService } from "../services/TokenService";
+import { RefreshTokenRepository } from "../repositories/RefreshTokenRepository";
+import { RefreshToken } from "../entities/RefreshToken";
 
 export const userRouter = Router();
 
+const tokenService = new TokenService(
+  new RefreshTokenRepository(AppDataSource.getRepository(RefreshToken))
+);
+
 const userController = new UserController(
-  new UserService(new UserRepository(AppDataSource.getRepository(User)))
+  new UserService(
+    new UserRepository(AppDataSource.getRepository(User)),
+    tokenService
+  )
 );
 
 userRouter.get("/", userController.getUsers);
@@ -22,3 +33,4 @@ userRouter.put(
   validation(UserUpdateDto),
   userController.updateUser
 );
+userRouter.post("/", validation(UserCreateDto), userController.addUser);

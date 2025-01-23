@@ -15,6 +15,6 @@ export function handleError(
   }
 
   res.status(500).json({ message: "Unexpected error", errors: [] });
-  console.log(err);
+  console.log(err.message);
   return;
 }

@@ -35,4 +35,15 @@ export class UserController {
       next(e);
     }
   };
+
+  addUser = async (req: Request, res: Response, next: NextFunction) => {
+    const userData = req.body;
+    try {
+      const newUser = await this.userService.add(userData);
+      res.status(201).json(newUser);
+      return;
+    } catch (e) {
+      next(e);
+    }
+  };
 }

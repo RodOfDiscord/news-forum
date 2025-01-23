@@ -20,9 +20,11 @@ export class CategoryRepository {
     return category;
   }
 
-  async add(categoryCreateDto: CategoryCreateDto): Promise<InsertResult> {
+  async add(categoryCreateDto: CategoryCreateDto): Promise<Category | null> {
     const newCategory = this.categoryRepository.create(categoryCreateDto);
-    return await this.categoryRepository.insert(newCategory);
+    const id = (await this.categoryRepository.insert(newCategory))
+      .generatedMaps[0].id;
+    return await this.categoryRepository.findOne({ where: { id } });
   }
 
   async update(
