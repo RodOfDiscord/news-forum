@@ -89,7 +89,6 @@ export class UserService {
       email: user.email,
       role: user.role,
     };
-    console.log(newUserPayload);
     const newRefreshToken = await this.tokenService.createRefreshToken(
       newUserPayload
     );
