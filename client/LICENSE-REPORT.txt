@@ -1,0 +1,25 @@
+The list excludes open licenses such as MIT, BSD, ISC, Apache-2.0
+
+├─ argparse@2.0.1
+│  ├─ licenses: Python-2.0
+│  ├─ repository: https://github.com/nodeca/argparse
+│  ├─ path: D:\VSCodeProjects\practice2025\client\node_modules\argparse
+│  └─ licenseFile: D:\VSCodeProjects\practice2025\client\node_modules\argparse\LICENSE
+├─ caniuse-lite@1.0.30001692
+│  ├─ licenses: CC-BY-4.0
+│  ├─ repository: https://github.com/browserslist/caniuse-lite
+│  ├─ publisher: Ben Briggs
+│  ├─ email: beneb.info@gmail.com
+│  ├─ url: http://beneb.info
+│  ├─ path: D:\VSCodeProjects\practice2025\client\node_modules\caniuse-lite
+│  └─ licenseFile: D:\VSCodeProjects\practice2025\client\node_modules\caniuse-lite\LICENSE
+├─ lightningcss-win32-x64-msvc@1.29.1
+│  ├─ licenses: MPL-2.0
+│  ├─ repository: https://github.com/parcel-bundler/lightningcss
+│  ├─ path: D:\VSCodeProjects\practice2025\client\node_modules\lightningcss-win32-x64-msvc
+│  └─ licenseFile: D:\VSCodeProjects\practice2025\client\node_modules\lightningcss-win32-x64-msvc\LICENSE
+└─ lightningcss@1.29.1
+   ├─ licenses: MPL-2.0
+   ├─ repository: https://github.com/parcel-bundler/lightningcss
+   ├─ path: D:\VSCodeProjects\practice2025\client\node_modules\lightningcss
+   └─ licenseFile: D:\VSCodeProjects\practice2025\client\node_modules\lightningcss\LICENSE

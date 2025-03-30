@@ -1,0 +1,25 @@
+The list excludes open licenses such as MIT, BSD, ISC, Apache-2.0
+
+├─ jackspeak@3.4.3
+│  ├─ licenses: BlueOak-1.0.0
+│  ├─ repository: https://github.com/isaacs/jackspeak
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ path: D:\VSCodeProjects\practice2025\server\node_modules\jackspeak
+│  └─ licenseFile: D:\VSCodeProjects\practice2025\server\node_modules\jackspeak\LICENSE.md
+├─ package-json-from-dist@1.0.1
+│  ├─ licenses: BlueOak-1.0.0
+│  ├─ repository: https://github.com/isaacs/package-json-from-dist
+│  ├─ publisher: Isaac Z. Schlueter
+│  ├─ email: i@izs.me
+│  ├─ url: https://izs.me
+│  ├─ path: D:\VSCodeProjects\practice2025\server\node_modules\package-json-from-dist
+│  └─ licenseFile: D:\VSCodeProjects\practice2025\server\node_modules\package-json-from-dist\LICENSE.md
+└─ path-scurry@1.11.1
+   ├─ licenses: BlueOak-1.0.0
+   ├─ repository: https://github.com/isaacs/path-scurry
+   ├─ publisher: Isaac Z. Schlueter
+   ├─ email: i@izs.me
+   ├─ url: https://blog.izs.me
+   ├─ path: D:\VSCodeProjects\practice2025\server\node_modules\path-scurry
+   └─ licenseFile: D:\VSCodeProjects\practice2025\server\node_modules\path-scurry\LICENSE.md

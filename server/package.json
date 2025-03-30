@@ -7,8 +7,8 @@
     "build": "npx tsc",
     "start": "ts-node src/index.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ivan Palamarchuk",
+  "license": "MPL-2.0",
   "description": "",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
