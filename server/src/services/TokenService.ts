@@ -14,7 +14,7 @@ export class TokenService {
 
   async createRefreshToken(userPayload: UserPayloadDto) {
     const token = sign(userPayload, String(process.env.REFRESH_TOKEN_SECRET), {
-      expiresIn: process.env.REFRESH_TOKEN_EXPIRATION,
+      expiresIn: Number(process.env.REFRESH_TOKEN_EXPIRATION),
     });
     const tokenDto = new RefreshTokenCreateDto();
     tokenDto.token = token;
