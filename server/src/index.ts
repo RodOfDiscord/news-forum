@@ -6,6 +6,7 @@ import cors from "cors";
 import { router } from "./routers/router";
 import { handleError } from "./middlewares/ErrorHandler";
 import { ApiError } from "./utils/errors/ApiError";
+import { swagger } from "./utils/swagger/swagger";
 
 config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 const port = process.env.SERVER_PORT || 3000;
+swagger(app, port);
 app.use(router);
 
 app.use((req, res, next) => {

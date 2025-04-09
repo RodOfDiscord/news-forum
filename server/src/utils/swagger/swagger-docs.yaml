@@ -1,0 +1,187 @@
+paths:
+  /articles:
+    get:
+      tags:
+        - Articles
+      summary: "Retrieve list of articles"
+      description: "Retrieve a list of articles from the database."
+      responses:
+        "200":
+          description: "List of articles retrieved successfully."
+        "500":
+          description: "Internal server error."
+    post:
+      tags:
+        - Articles
+      summary: "Create a new article"
+      description: "Create a new article after successful authentication and payload validation."
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleCreateDto"
+      responses:
+        "201":
+          description: "Article created successfully."
+        "400":
+          description: "Bad Request."
+        "401":
+          description: "Unauthorized."
+        "500":
+          description: "Internal server error."
+
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: "User Login"
+      description: "Authenticate user with provided credentials."
+      requestBody:
+        description: "Credentials for login"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: "Login successful. Returns access and refresh tokens."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refreshToken:
+                    type: string
+                  accessToken:
+                    type: string
+        "400":
+          description: "Invalid credentials."
+
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: "User Registration"
+      description: "Register a new user."
+      requestBody:
+        description: "User registration data"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateDto"
+      responses:
+        "201":
+          description: "User created successfully."
+        "400":
+          description: "Validation error."
+        "409":
+          description: "User already exists."
+
+  /auth/logout:
+    get:
+      tags:
+        - Auth
+      summary: "User Logout"
+      description: "Logs out the current user. The token is removed from cookies and the database."
+      responses:
+        "200":
+          description: "Logged out successfully."
+        "404":
+          description: "Token not found."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Token not found"
+                  errors:
+                    type: array
+                    items:
+                      type: string
+
+  /auth/refresh-token:
+    get:
+      tags:
+        - Auth
+      summary: "Refresh Tokens"
+      description: "Get a new access and refresh tokens using current refresh token in cookie."
+      responses:
+        "200":
+          description: "Tokens refreshed successfully."
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  refreshToken:
+                    type: string
+                  accessToken:
+                    type: string
+        "400":
+          description: "Invalid session or unauthorized."
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    ArticleCreateDto:
+      type: object
+      required:
+        - title
+        - content
+        - category_id
+      properties:
+        title:
+          type: string
+          example: "New Title of the article"
+        content:
+          type: string
+          example: "This is the content of the new article."
+        category_id:
+          type: string
+    UserCreateDto:
+      type: object
+      properties:
+        username:
+          type: string
+          description: "User's display name."
+        login:
+          type: string
+          description: "User's login identifier."
+        password:
+          type: string
+          description: "User's password."
+        email:
+          type: string
+          format: email
+          description: "User's email address."
+      required:
+        - username
+        - login
+        - password
+        - email
+
+tags:
+  - name: Articles
+    description: "Operations related to articles"
+  - name: Auth
+    description: "Operations related to user authentication"

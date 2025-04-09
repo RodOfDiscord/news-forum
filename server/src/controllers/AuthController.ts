@@ -24,6 +24,7 @@ export class AuthController {
   register = async (req: Request, res: Response, next: NextFunction) => {
     try {
       await this.userService.add(req.body);
+      res.sendStatus(201);
     } catch (e) {
       next(e);
     }
@@ -51,7 +52,7 @@ export class AuthController {
       const token = req.cookies["refreshToken"];
       await this.userService.logout(token);
       res.clearCookie("refreshToken");
-      res.status(200);
+      res.sendStatus(200);
       return;
     } catch (e) {
       next(e);

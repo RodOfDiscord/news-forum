@@ -11,6 +11,6 @@ export class ArticleController {
 
   addArticle = async (req: Request, res: Response) => {
     const newArticle = await this.articleService.add(req.body);
-    res.send(newArticle);
+    res.status(201).send(newArticle);
   };
 }

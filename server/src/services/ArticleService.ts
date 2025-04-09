@@ -1,4 +1,3 @@
-import { InsertResult } from "typeorm";
 import { ArticleCreateDto } from "../dtos/article/ArticleCreateDto";
 import { Article } from "../entities/Article";
 import { ArticleRepository } from "../repositories/ArticleRepository";
@@ -10,7 +9,7 @@ export class ArticleService {
     return await this.articleRepository.getAll();
   }
 
-  async add(articleDto: ArticleCreateDto): Promise<InsertResult> {
+  async add(articleDto: ArticleCreateDto): Promise<Article | null> {
     return await this.articleRepository.add(articleDto);
   }
 

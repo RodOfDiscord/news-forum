@@ -1,4 +1,4 @@
-import { InsertResult, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Article } from "../entities/Article";
 import { ArticleUpdateDto } from "../dtos/article/ArticleUpdateDto";
 import { ArticleCreateDto } from "../dtos/article/ArticleCreateDto";
@@ -26,9 +26,11 @@ export class ArticleRepository {
     return result.affected !== 0;
   }
 
-  async add(articleDto: ArticleCreateDto): Promise<InsertResult> {
+  async add(articleDto: ArticleCreateDto): Promise<Article | null> {
     const newArticle = this.articleRepository.create(articleDto);
-    return await this.articleRepository.insert(newArticle);
+    const id = (await this.articleRepository.insert(newArticle))
+      .generatedMaps[0].id;
+    return await this.articleRepository.findOne({ where: { id } });
   }
 
   async delete(id: string): Promise<boolean> {
