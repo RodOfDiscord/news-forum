@@ -38,7 +38,7 @@ paths:
       tags:
         - Auth
       summary: "User Login"
-      description: "Authenticate user with provided credentials."
+      description: "Authenticate user with provided credentials. Generate new refresh and access tokens. SAVE refresh token in cookies and database table."
       requestBody:
         description: "Credentials for login"
         required: true
