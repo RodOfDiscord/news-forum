@@ -2,6 +2,13 @@
 
 Welcome to the **News Forum** project! This repository contains the source code for a platform where users can share and discuss news and articles.
 
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your machine:
+
+- **Node.js** (v16+)
+- **PostgreSQL** (v13+): a running PostgreSQL server and a database.
+
 ## Setup Guide
 
 Follow these steps to set up the project for development:
@@ -14,8 +21,6 @@ Follow these steps to set up the project for development:
    ```
 
 2. **Install Dependencies for client and server-side**
-
-   Ensure you have [Node.js](https://nodejs.org/) installed to run these commands:
 
    ```bash
    cd client
