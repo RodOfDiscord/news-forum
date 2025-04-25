@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const ArticleCard = ({ variant, content, image, title, date, onClick }) => {
+const ArticleCard = ({ variant = "default", content, image, title, date, onClick }) => {
     return (
         <div className={`${base} ${layouts[variant]}`}>
             {variant !== 'compact' && (
