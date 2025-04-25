@@ -8,6 +8,7 @@ const body = (
 );
 export default {
     component: ArticleCard,
+    tags: ['autodocs'],
     parameters: {
         layout: "centered",
     },
